@@ -6,7 +6,6 @@
  */
 
 #include <stdio.h>
-#include <fcntl.h>
 #include <unistd.h>
 #include <sys/poll.h>
 #include <sys/signal.h>
@@ -14,15 +13,19 @@
 #include <glib.h>
 #include <stdbool.h>
 #include <sys/time.h>
+#include <err.h>
 
 #include "../include/gpio.h"
+
+const gchar *GPIO_PIN;
+const gchar *GPIO_TRIGGER_MODE;
 
 GThreadPool *thread_pool;
 pthread_t poll_thread;
 int status;
 
 void shutdown_gracefully(const int reason_status, const char *reason) {
-  unexport_gpio_pin();
+  unexport_gpio_pin(GPIO_PIN);
 
   if (reason != NULL) {
     fprintf(status ? stdout : stderr, "Shutting down because %s\n", reason);
@@ -45,12 +48,12 @@ void *poll_gpio() {
   unsigned long long *epoch;
   struct timeval tv;
 
-  if (setup_gpio() < 0) {
-    shutdown_gracefully(1, "setup_gpio() failed");
+  if (setup_gpio(GPIO_PIN, GPIO_TRIGGER_MODE) < 0) {
+    shutdown_gracefully(1, "setup_gpio(GPIO_PIN, GPIO_TRIGGER_MODE) failed");
   }
 
-  if ((gpio_value_fd = open(SYS_GPIO_VALUE_FS, O_RDONLY)) < 0) {
-    shutdown_gracefully(1, "open(SYS_GPIO_VALUE) failed");
+  if ((gpio_value_fd = open_gpio_value(GPIO_PIN)) < 0) {
+    shutdown_gracefully(1, "open_gpio_value(GPIO_PIN) failed");
   }
 
   poll_fd.fd = gpio_value_fd;
@@ -105,6 +108,19 @@ void *submit_data(unsigned long long *epoch) {
 }
 
 int main() {
+  gchar **environ = g_get_environ();
+
+  GPIO_PIN = g_environ_getenv(environ, "RASPOWMETER_GPIO_PIN");
+  GPIO_TRIGGER_MODE = g_environ_getenv(environ, "RASPOWMETER_GPIO_TRIGGER_MODE");
+
+  if (GPIO_PIN == NULL || *GPIO_PIN == '\0') {
+    errx(-1, "environment variable RASPOWMETER_GPIO_PIN is not set");
+  }
+
+  if (GPIO_TRIGGER_MODE == NULL || *GPIO_TRIGGER_MODE == '\0') {
+    errx(-1, "environment variable GPIO_TRIGGER_MODE is not set");
+  }
+
   signal(SIGINT, signal_handler);
   signal(SIGTERM, signal_handler);
 

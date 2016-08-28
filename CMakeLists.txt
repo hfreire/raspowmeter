@@ -3,7 +3,7 @@ project(raspowmeter)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES src/raspowmeter.c src/gpio.c include/gpio.h include/rasppowmeter.h)
+set(SOURCE_FILES src/main.c src/gpio.c include/gpio.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 include(FindPkgConfig)
