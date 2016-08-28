@@ -21,19 +21,18 @@ const gchar *GPIO_PIN;
 const gchar *GPIO_TRIGGER_MODE;
 
 GThreadPool *thread_pool;
-pthread_t poll_thread;
-int status;
+GThread *poll_thread;
 
-void shutdown_gracefully(const int reason_status, const char *reason) {
+void shutdown_gracefully(const int status, const char *reason) {
   unexport_gpio_pin(GPIO_PIN);
 
   if (reason != NULL) {
     fprintf(status ? stdout : stderr, "Shutting down because %s\n", reason);
   }
 
-  status = reason_status;
+  g_thread_pool_free(thread_pool, false, false);
 
-  pthread_cancel(poll_thread);
+  exit(status);
 }
 
 void signal_handler(int signal) {
@@ -117,7 +116,7 @@ int main() {
   }
 
   if (GPIO_TRIGGER_MODE == NULL || *GPIO_TRIGGER_MODE == '\0') {
-    errx(-1, "environment variable GPIO_TRIGGER_MODE is not set");
+    errx(-1, "environment variable RASPOWMETER_GPIO_TRIGGER_MODE is not set");
   }
 
   signal(SIGINT, signal_handler);
@@ -125,15 +124,8 @@ int main() {
 
   thread_pool = g_thread_pool_new((GFunc) submit_data, NULL, 5, true, NULL);
 
-  if (pthread_create(&poll_thread, NULL, (void *) &poll_gpio, NULL) != 0) {
-    shutdown_gracefully(1, "phtread_create() failed");
-  }
+  poll_thread = g_thread_new("poll_thread", (void *) &poll_gpio, NULL);
+  g_thread_join(poll_thread);
 
-  if (pthread_join(poll_thread, NULL) != 0) {
-    shutdown_gracefully(1, "pthread_join() failed");
-  }
-
-  g_thread_pool_free(thread_pool, false, false);
-
-  return status;
+  return 0;
 }

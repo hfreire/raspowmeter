@@ -1,14 +1,19 @@
 cmake_minimum_required(VERSION 3.4)
 project(raspowmeter)
 
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES src/main.c src/gpio.c include/gpio.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-include(FindPkgConfig)
+find_package(GLIB2 REQUIRED)
+if (GLIB2_FOUND)
+    include_directories(${PROJECT_NAME} ${GLIB2_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${GLIB2_LIBRARIES})
+endif ()
 
-pkg_check_modules(GLIB2 glib-2.0 REQUIRED)
-include_directories(${GLIB2_INCLUDE_DIRS})
-link_directories (${GLIB2_LIBRARY_DIRS})
-target_link_libraries(${PROJECT_NAME} ${GLIB2_LIBRARIES})
+if (UNIX AND NOT APPLE)
+    target_link_libraries(${PROJECT_NAME} pthread rt)
+endif ()

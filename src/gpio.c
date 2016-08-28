@@ -14,15 +14,15 @@
 
 int unexport_gpio_pin(const char *gpio_pin) {
   int fd;
-  char fn[32];
+  char fn[48];
 
   if (gpio_pin == NULL || *gpio_pin == '\0') {
     return -1;
   }
 
-  memset(fn, 0x00, 32);
+  memset(fn, 0x00, 48);
 
-  snprintf(fn, 32 - 1, SYS_GPIO_UNEXPORT_FS);
+  snprintf(fn, 48 - 1, SYS_GPIO_UNEXPORT_FS);
 
   if ((fd = open(fn, O_WRONLY)) < 0) {
     warnx("open(SYS_GPIO_UNEXPORT) failed");
@@ -47,15 +47,15 @@ int unexport_gpio_pin(const char *gpio_pin) {
 
 int export_gpio_pin(const char *gpio_pin) {
   int fd;
-  char fn[32];
+  char fn[48];
 
   if (gpio_pin == NULL || *gpio_pin == '\0') {
     return -1;
   }
 
-  memset(fn, 0x00, 32);
+  memset(fn, 0x00, 48);
 
-  snprintf(fn, 32 - 1, SYS_GPIO_EXPORT_FS);
+  snprintf(fn, 48 - 1, SYS_GPIO_EXPORT_FS);
 
   if ((fd = open(fn, O_WRONLY)) < 0) {
     warnx("open(SYS_GPIO_EXPORT) failed");
@@ -80,15 +80,15 @@ int export_gpio_pin(const char *gpio_pin) {
 
 int set_gpio_direction(const char *gpio_pin) {
   int fd;
-  char fn[32];
+  char fn[48];
 
   if (gpio_pin == NULL || *gpio_pin == '\0') {
     return -1;
   }
 
-  memset(fn, 0x00, 32);
+  memset(fn, 0x00, 48);
 
-  snprintf(fn, 32 - 1, SYS_GPIO_DIRECTION_FS, gpio_pin);
+  snprintf(fn, 48 - 1, SYS_GPIO_DIRECTION_FS, gpio_pin);
 
   if ((fd = open(fn, O_WRONLY)) < 0) {
     warnx("open(SYS_GPIO_DIRECTION) failed");
@@ -113,7 +113,7 @@ int set_gpio_direction(const char *gpio_pin) {
 
 int set_gpio_trigger_mode(const char *gpio_pin, const char *gpio_trigger_mode) {
   int fd;
-  char fn[32];
+  char fn[48];
 
   if (gpio_pin == NULL || *gpio_pin == '\0') {
     return -1;
@@ -123,9 +123,9 @@ int set_gpio_trigger_mode(const char *gpio_pin, const char *gpio_trigger_mode) {
     return -1;
   }
 
-  memset(fn, 0x00, 32);
+  memset(fn, 0x00, 48);
 
-  snprintf(fn, 32 - 1, SYS_GPIO_EDGE_FS, gpio_pin);
+  snprintf(fn, 48 - 1, SYS_GPIO_EDGE_FS, gpio_pin);
 
   if ((fd = open(fn, O_WRONLY)) < 0) {
     warnx("open(SYS_GPIO_EDGE) failed");
@@ -150,16 +150,14 @@ int set_gpio_trigger_mode(const char *gpio_pin, const char *gpio_trigger_mode) {
 
 int open_gpio_value(const char *gpio_pin) {
   int fd;
-  char fn[32];
+  char fn[48];
 
   if (gpio_pin == NULL || *gpio_pin == '\0') {
     return -1;
   }
-  memset(fn, 0x00, 32);
+  memset(fn, 0x00, 48);
 
-  snprintf(fn, 32 - 1, SYS_GPIO_VALUE_FS, gpio_pin);
-
-  printf("HERE %s\n", fn);
+  snprintf(fn, 48 - 1, SYS_GPIO_VALUE_FS, gpio_pin);
 
   if ((fd = open(fn, O_RDONLY)) < 0) {
     warnx("open(SYS_GPIO_EDGE) failed");
@@ -176,6 +174,8 @@ int setup_gpio(const char *gpio_pin, const char *gpio_trigger_mode) {
 
     return -1;
   }
+
+  sleep(2);
 
   if (set_gpio_direction(gpio_pin) < 0) { // echo in > /sys/class/gpio${$GPIO_PIN}/direction
     warnx("set_gpio_direction() failed");
