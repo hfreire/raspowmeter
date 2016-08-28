@@ -4,7 +4,7 @@
 * Blazing fast :dizzy: C code :neckbeard::astonished: with low memory footprint :white_check_mark:
 * Polls GPIO state through the sysfs interface :scream: that uses interrupts (edge detection) from the kernel :white_check_mark:
 * Multi-threaded (consumer & producer) :thumbsup: makes sure that we don't miss GPIO states :white_check_mark:
-* Run inside a Docker container :whale: so you don't need to manage the dependencies :raised_hands: :white_check_mark:
+* Launch :rocket: inside a Docker container :whale: so you don't need to manage the dependencies :raised_hands: :white_check_mark:
 
 ### How to build (cross-compile)
 `mkdir -p build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/platforms/raspbian/toolchain/arm-linux-gnueabihf.cmake .. && make`
