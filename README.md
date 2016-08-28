@@ -1,5 +1,4 @@
-# raspowmeter
-A Raspberry Pi power meter solution for your home
+# A Raspberry Pi :computer: power meter :zap::electric_plug: solution for your home :house_with_garden:
 
 `mkdir -p build && cd build && cmake .. && make`
 
