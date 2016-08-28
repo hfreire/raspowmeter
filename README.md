@@ -17,3 +17,5 @@
 
 ### Digital light pulse sensor
 ![alt text](https://raw.githubusercontent.com/hfreire/raspowmeter/master/share/fritzing/digital-light-pulse-sensor.png "Digital light pulse sensor in a breadboard")
+
+Notes: A simple digital light pulse sensing circuitry made from a transistor behaving like a switch that is influenced by a photoresistor in a voltage divider.
