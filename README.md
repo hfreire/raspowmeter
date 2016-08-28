@@ -16,6 +16,11 @@
 `docker build -t registry.exec.sh/raspowmeter -f ./share/docker/Dockerfile .`
 
 ### Digital light pulse sensor
+A simple digital light pulse sensor that resembles an inverter (logic gate). The circuitry is made from a transistor behaving like a switch that is influenced by a photoresistor in a voltage divider.
+
 ![alt text](https://raw.githubusercontent.com/hfreire/raspowmeter/master/share/fritzing/digital-light-pulse-sensor.png "Digital light pulse sensor in a breadboard")
 
-Notes: A simple digital light pulse sensing circuitry made from a transistor behaving like a switch that is influenced by a photoresistor in a voltage divider.
+#### References
+* https://en.wikipedia.org/wiki/Inverter_(logic_gate)
+* https://en.wikipedia.org/wiki/Transistor#Transistor_as_a_switch
+* https://en.wikipedia.org/wiki/Voltage_divider
