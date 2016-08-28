@@ -1,9 +1,9 @@
 # A Raspberry Pi :computer: power meter :zap::electric_plug: solution for your home :house_with_garden:
 
 ## Features
-* Blazing fast C code with low memory footprint
-* Polls GPIO state through sysfs interface that uses interrupts (edge detection) from the kernel
-* Multi-threaded (consumer & producer) makes sure that we don't miss GPIO states
+* Blazing fast :dizzy: C code :neckbeard::astonished: with low memory footprint :white_check_mark:
+* Polls GPIO state through sysfs interface :scream: that uses interrupts (edge detection) from the kernel :white_check_mark:
+* Multi-threaded (consumer & producer) :thumbsup: makes sure that we don't miss GPIO states :white_check_mark:
 
 ## Dependencies
 * GLib >= 2.0.0
