@@ -16,4 +16,4 @@
 `docker build -t registry.exec.sh/raspowmeter -f ./share/docker/Dockerfile .`
 
 ### Digital light pulse sensor
-![alt text](https://raw.githubusercontent.com/hfreire/raspowmeter/master/share/fritzing/digital-light-pulse-sensor "Digital light pulse sensor in a breadboard")
+![alt text](https://raw.githubusercontent.com/hfreire/raspowmeter/master/share/fritzing/digital-light-pulse-sensor.png "Digital light pulse sensor in a breadboard")
