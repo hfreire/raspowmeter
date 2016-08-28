@@ -102,7 +102,6 @@ void *poll_gpio() {
 
 void *submit_data(unsigned long long *epoch) {
   printf("[thread-%p] Detected %s edge in GPIO %s at %llu\n", g_thread_self(), GPIO_TRIGGER_MODE, GPIO_PIN, *epoch);
-  fflush(stdout);
 
   return NULL;
 }

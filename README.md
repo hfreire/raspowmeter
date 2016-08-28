@@ -1,8 +1,12 @@
 # A Raspberry Pi :computer: power meter :zap::electric_plug: solution for your home :house_with_garden:
 
 ## Features
+* Blazing fast C code with low memory footprint
 * Polls GPIO state through sysfs interface that uses interrupts (edge detection) from the kernel
 * Multi-threaded (consumer & producer) makes sure that we don't miss GPIO states
+
+## Dependencies
+* GLib >= 2.0.0
 
 ### How to build (cross-compile)
 `mkdir -p build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/platforms/linux/toolchain/arm-linux-gnueabihf.cmake .. && make`
