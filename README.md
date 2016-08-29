@@ -18,4 +18,5 @@
 ### Digital light pulse sensor
 A simple digital light pulse sensor that resembles an [inverter (logic gate)](https://en.wikipedia.org/wiki/Inverter_(logic_gate)). The circuitry is made from a [transistor behaving like a switch](https://en.wikipedia.org/wiki/Transistor#Transistor_as_a_switch) that is influenced by a photoresistor in a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
 
-![alt text](https://raw.githubusercontent.com/hfreire/raspowmeter/master/share/fritzing/digital-light-pulse-sensor.png "Digital light pulse sensor in a breadboard")
+![alt text](https://raw.githubusercontent.com/hfreire/raspowmeter/master/share/fritzing/digital-light-pulse-sensor_schematic.png "Digital light pulse sensor schematic")
+![alt text](https://raw.githubusercontent.com/hfreire/raspowmeter/master/share/fritzing/digital-light-pulse-sensor_breadboard.png "Digital light pulse sensor in a breadboard")
