@@ -91,8 +91,7 @@ void *poll_gpio() {
 
     *epoch = (unsigned long long) (tv.tv_sec) * 1000 + (unsigned long long) (tv.tv_usec) / 1000;
 
-    read_gpio_value(gpio_value_fd);
-    read_gpio_value(gpio_value_fd);
+    read_gpio_value(gpio_value_fd); // force read value to make poll() happy
 
     g_thread_pool_push (thread_pool, &epoch, NULL);
   }
