@@ -7,13 +7,16 @@
 * Launch :rocket: inside a Docker container :whale: so you don't need to manage the dependencies :raised_hands: :white_check_mark:
 
 ### How to build (cross-compile)
-`mkdir -p build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/platforms/raspbian/toolchain/arm-linux-gnueabihf.cmake .. && make`
+`mkdir -p build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/platforms/rpi/toolchain/armv6-rpi1-linux-gnueabihf.cmake .. && make`
 
 ### How to start
-`RASPOWMETER_GPIO_PIN=7 RASPOWMETER_GPIO_TRIGGER_MODE=falling ./raspowmeter `
+`RASPOWMETER_GPIO_PIN=7 RASPOWMETER_GPIO_TRIGGER_MODE=falling ./raspowmeter`
 
 ### Build Docker container
 `docker build -t registry.exec.sh/raspowmeter -f ./share/docker/Dockerfile .`
+
+### Push Docker container to registry
+`docker push registry.exec.sh/raspowmeter`
 
 ### Digital light pulse sensor
 A simple digital light pulse sensor that resembles an [inverter (logic gate)](https://en.wikipedia.org/wiki/Inverter_(logic_gate)). The circuitry is made from a [transistor behaving like a switch](https://en.wikipedia.org/wiki/Transistor#Transistor_as_a_switch) that is influenced by a photoresistor in a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
